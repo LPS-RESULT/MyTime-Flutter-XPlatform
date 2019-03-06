@@ -73,23 +73,37 @@ class ImageBackground extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.fromLTRB(20, 40, 0, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text("good afternoon",
-                            style: new TextStyle(
-                                fontSize: 14.0,
-                                letterSpacing: 1.2,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.white30),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text("good morning",
+                                style: new TextStyle(
+                                    fontSize: 14.0,
+                                    letterSpacing: 1.2,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.white54),
+                              ),
+                              Text("Timothy Santiago",
+                                style: new TextStyle(
+                                    fontSize: 25.0,
+                                    letterSpacing: 1.2,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.white),
+                              ),
+                            ],
                           ),
-                          Text("Timothy Santiago",
-                            style: new TextStyle(
-                            fontSize: 25.0,
-                            letterSpacing: 1.2,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white),
-                          ),
+                          FlatButton(
+                            onPressed: (){
+                              Navigator.of(context).pushNamed('/map');
+                            },
+                            child: Icon(
+                              Icons.my_location,
+                              color: Colors.white,
+                            )
+                          )
                         ],
                       )
                     ),

@@ -16,13 +16,14 @@ class MTApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Quicksand'
       ),
-      home: MapPage(),
+      home: LoginPage(),
       routes:  <String, WidgetBuilder>{
         '/login': (BuildContext context) => LoginPage(),
         '/processLogin': (BuildContext context) => ProcessLoginPage(),
         '/home': (BuildContext context) => HomePage(),
         '/editTimeLog': (BuildContext context) => EditTimeLogPage(),
         '/moodMeter': (BuildContext context) => MyReviewPage(),
+        '/map': (BuildContext context) => MapPage(),
       },
     );
   }

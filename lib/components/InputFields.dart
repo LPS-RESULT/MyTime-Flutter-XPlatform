@@ -41,7 +41,8 @@ class DarkInputFieldArea extends StatelessWidget {
   final String hint;
   final bool obscure;
   final IconData icon;
-  DarkInputFieldArea({this.hint, this.obscure, this.icon});
+  TextInputType inputType = TextInputType.text;
+  DarkInputFieldArea({this.hint, this.obscure, this.icon, this.inputType});
   @override
   Widget build(BuildContext context) {
     return (new Container(
@@ -54,6 +55,7 @@ class DarkInputFieldArea extends StatelessWidget {
         ),
       ),
       child: new TextFormField(
+        keyboardType: inputType,
         style: const TextStyle(
           color: Colors.black,
         ),

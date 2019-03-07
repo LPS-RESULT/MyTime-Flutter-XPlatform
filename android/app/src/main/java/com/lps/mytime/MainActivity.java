@@ -1,4 +1,4 @@
-package com.example.mytime_mobile;
+package com.lps.mytime;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

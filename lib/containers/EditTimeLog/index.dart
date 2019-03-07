@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:mytime_mobile/components/InputFields.dart';
+import 'package:intl/intl.dart';
 
 class EditTimeLogPage extends StatefulWidget {
   const EditTimeLogPage({Key key}) : super(key: key);
@@ -13,14 +14,27 @@ class EditTimeLogPage extends StatefulWidget {
 
 class EditTimeLogPageState extends State<EditTimeLogPage>{
 
-  String _billable = 'Non-billable';
-  List<DropdownMenuItem> _billableItems = [
-    DropdownMenuItem(child: Text('Non-billable')),
-    DropdownMenuItem(child: Text('Billable'))];
+  DropdownMenuItem _project = DropdownMenuItem(
+      child: Text('LPS New Zealand - LPS NZ Perm')
+  );
+  List<DropdownMenuItem> _projectItems = [
+    DropdownMenuItem(child: Text('LPS New Zealand - LPS NZ Perm')),
+  ];
+
+  List<DropdownMenuItem> _codeItems = [
+    DropdownMenuItem(child: Text('--None--')),
+  ];
+
+  String _currentDate = '';
 
   @override
   void initState() {
     super.initState();
+    var now = new DateTime.now();
+    var formatter = new DateFormat('EEEE, MMM d, yyyy');
+    setState(() {
+      _currentDate = formatter.format(now);
+    });
   }
 
   @override
@@ -54,41 +68,73 @@ class EditTimeLogPageState extends State<EditTimeLogPage>{
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return (Scaffold(
       body: Container(
-          padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
+          padding: EdgeInsets.fromLTRB(20, 50, 20, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("new time log",
-                style: new TextStyle(
-                    fontSize: 14.0,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black38),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  InkWell(
+                    child: Icon(Icons.arrow_back_ios),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  Padding(padding: EdgeInsets.fromLTRB(6, 0, 0, 0),),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("timesheet log",
+                        style: new TextStyle(
+                            fontSize: 14.0,
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black38),
+                      ),
+                      Text(_currentDate,
+                        style: new TextStyle(
+                            fontSize: 28.0,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
+                      ),
+                    ],
+                  )
+                ],
               ),
-              Text("Details:",
-                style: new TextStyle(
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
-              ),
+
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: Form(
                     child: new Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Text("project",
+                          style: new TextStyle(
+                              fontSize: 14.0,
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black38),
+                        ),
                         DropdownButton(
-                          items: _billableItems,
+                          items: _projectItems,
                           onChanged: (item){
                             setState((){
-                              _billable = item;
+                              _project = item;
                             });
                           },
                         ),
-                        new DarkInputFieldArea(
-                          hint: "Project Name",
-                          obscure: false,
-                          icon: Icons.assessment,
+                        Text("project code",
+                          style: new TextStyle(
+                              fontSize: 14.0,
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black38),
+                        ),
+                        DropdownButton(
+                          items: _codeItems,
+                          onChanged: (item){
+                          },
                         ),
                         new DarkInputFieldArea(
                           hint: "Description",
@@ -97,6 +143,7 @@ class EditTimeLogPageState extends State<EditTimeLogPage>{
                         new DarkInputFieldArea(
                           hint: "Hours",
                           icon: Icons.alarm,
+                          inputType: TextInputType.number,
                         ),
                         MaterialButton(
                           child: Text('Set Mood',

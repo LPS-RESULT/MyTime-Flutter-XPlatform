@@ -11,6 +11,8 @@ import 'homeAnimation.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:mytime_mobile/utils/colors.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:mytime_mobile/containers/EditTimeLog/index.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -67,7 +69,6 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     _screenController = new AnimationController(
         duration: new Duration(milliseconds: 2000), vsync: this);
     _buttonController = new AnimationController(
@@ -155,6 +156,8 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
     );
     _screenController.forward();
+
+    checkLocationPermission();
   }
 
   @override
@@ -168,6 +171,18 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     try {
       await _buttonController.forward();
     } on TickerCanceled {}
+  }
+
+  checkLocationPermission() async {
+    PermissionStatus permission = await PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.location);
+    if (permission != PermissionStatus.granted) {
+      await PermissionHandler().requestPermissions([
+        PermissionGroup.location,
+        PermissionGroup.locationAlways,
+        PermissionGroup.locationWhenInUse
+      ]);
+    }
   }
 
   @override
@@ -222,6 +237,13 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
 //                            });
 //                            _playAnimation();
                             Navigator.of(context).pushNamed('/editTimeLog');
+//                            showModalBottomSheet(
+//                            context: context,
+//                            builder: (ctx) {
+//                              return Container(
+//                                child: EditTimeLogPage()
+//                              );
+//                            });
                           },
                           child: new AddButton(
                             buttonGrowAnimation: buttonGrowAnimation,

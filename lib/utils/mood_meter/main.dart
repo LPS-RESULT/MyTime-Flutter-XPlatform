@@ -221,10 +221,16 @@ class _MyReviewPageState extends State<MyReviewPage>
                               LinearGradient(colors: [startColor, endColor]),
                         ),
                         alignment: Alignment.center,
-                        child: Text(
-                          'SUBMIT',
-                          style: textStyle,
-                        )),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'SUBMIT',
+                            style: textStyle,
+                          )
+                        )
+                    ),
                   ),
 //              child: RaisedButton(
 //                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),

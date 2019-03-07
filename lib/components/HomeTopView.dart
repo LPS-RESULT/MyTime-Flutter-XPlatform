@@ -20,8 +20,6 @@ class ImageBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    final Orientation orientation = MediaQuery.of(context).orientation;
-    bool isLandscape = orientation == Orientation.landscape;
     return (new Container(
         width: screenSize.width,
         height: screenSize.height / 2.5,
@@ -37,38 +35,7 @@ class ImageBackground extends StatelessWidget {
             begin: const FractionalOffset(0.0, 0.0),
             end: const FractionalOffset(0.0, 1.0),
           )),
-          child: isLandscape
-              ? new ListView(
-                  children: <Widget>[
-                    new Flex(
-                      direction: Axis.vertical,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                          child: new Text(
-                            "Timothy Santiago",
-                            style: new TextStyle(
-                                fontSize: 20.0,
-                                letterSpacing: 1.2,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.white),
-                          ),
-                        ),
-                        new ProfileNotification(
-                          containerGrowAnimation: containerGrowAnimation,
-                          profileImage: profileImage,
-                        ),
-                        new MonthView(
-                          month: month,
-                          selectbackward: selectbackward,
-                          selectforward: selectforward,
-                        )
-                      ],
-                    )
-                  ],
-                )
-              : new Column(
+          child: new Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Padding(
@@ -79,7 +46,7 @@ class ImageBackground extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("good morning",
+                              Text("good afternoon",
                                 style: new TextStyle(
                                     fontSize: 14.0,
                                     letterSpacing: 1.2,

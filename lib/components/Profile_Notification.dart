@@ -14,7 +14,7 @@ class ProfileNotification extends StatelessWidget {
                 height: containerGrowAnimation.value * 35,
                 margin: new EdgeInsets.only(left: 80.0),
                 child: new Center(
-                  child: new Text("3",
+                  child: new Text("8",
                       style: new TextStyle(
                           fontSize: containerGrowAnimation.value * 15,
                           fontWeight: FontWeight.w400,
@@ -22,7 +22,7 @@ class ProfileNotification extends StatelessWidget {
                 ),
                 decoration: new BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color.fromRGBO(80, 210, 194, 1.0),
+                  color: Colors.lightGreen,
                 )),
           ],
         ),

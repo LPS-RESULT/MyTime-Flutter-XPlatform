@@ -26,6 +26,8 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To update your location on the LPS Connections map</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>To update your location on the LPS Connections map</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

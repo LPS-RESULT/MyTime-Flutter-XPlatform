@@ -22,9 +22,9 @@ class ListViewContent extends StatelessWidget {
         new ListData(
             margin: listSlidePosition.value * 5.5,
             width: listTileWidth.value,
-            title: "NZ Defence Force",
-            subtitle: "6 hrs - Automated testing and regression.",
-            image: nzdfAvatar),
+            title: "BNZ The Terrace",
+            subtitle: "6 hrs - iOS Swift Development.",
+            image: bnzAvatar),
         new ListData(
             margin: listSlidePosition.value * 4.5,
             width: listTileWidth.value,

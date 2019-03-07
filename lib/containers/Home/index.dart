@@ -12,7 +12,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:mytime_mobile/utils/colors.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:mytime_mobile/containers/EditTimeLog/index.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);

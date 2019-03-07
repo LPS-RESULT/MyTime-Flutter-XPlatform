@@ -11,12 +11,12 @@ class RowBoxData {
 class DataListBuilder {
   List<RowBoxData> rowItemList = new List<RowBoxData>();
   RowBoxData row1 = new RowBoxData(
-      title: "NZ Defence Force",
-      subtitle: "6 hrs - Automated testing...",
+      title: "BNZ The Terrace",
+      subtitle: "6 hrs - iOS Swift Development",
       image: nzdfAvatar);
   RowBoxData row2 = new RowBoxData(
       title: "LPS Wellington",
-      subtitle: "2hrs - Brownbag Meeting",
+      subtitle: "2 hrs - Brownbag Meeting",
       image: lpsAvatar);
 
   DataListBuilder() {

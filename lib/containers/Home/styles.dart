@@ -14,6 +14,12 @@ DecorationImage nzdfAvatar = new DecorationImage(
   image: new ExactAssetImage('assets/images/nzdf_box_logo.jpg'),
   fit: BoxFit.contain,
 );
+
+DecorationImage bnzAvatar = new DecorationImage(
+  image: new ExactAssetImage('assets/images/bnz_box_logo.jpg'),
+  fit: BoxFit.contain,
+);
+
 DecorationImage lpsAvatar = new DecorationImage(
   image: new ExactAssetImage('assets/images/lps_box_logo.png'),
   fit: BoxFit.contain,

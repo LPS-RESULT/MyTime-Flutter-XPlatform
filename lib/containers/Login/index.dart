@@ -9,6 +9,8 @@ import '../../components/Form.dart';
 import '../../components/SignInButton.dart';
 import '../../components/WhiteTick.dart';
 import '../../utils/colors.dart';
+import 'package:mytime_mobile/components/InputFields.dart';
+import 'package:mytime_mobile/containers/Login/processLogin.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 
@@ -22,11 +24,16 @@ class LoginPageState extends State<LoginPage>
     with TickerProviderStateMixin {
   AnimationController _loginButtonController;
   var animationStatus = 0;
+
+  TextEditingController _usernameController = TextEditingController(text: 'timothy.santiago@lps.co.nz');
+  TextEditingController _passwordController = TextEditingController(text: 'Frostie28');
+  TextEditingController _securityCodeController = TextEditingController(text: '3O06DiTatWXXQ9HPOjldYdQGC');
+
   @override
   void initState() {
     super.initState();
     _loginButtonController = AnimationController(
-        duration: Duration(milliseconds: 3000), vsync: this);
+        duration: Duration(milliseconds: 1500), vsync: this);
   }
 
   @override
@@ -38,6 +45,12 @@ class LoginPageState extends State<LoginPage>
   Future<Null> _playAnimation() async {
     try {
       await _loginButtonController.forward();
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>
+        ProcessLoginPage(
+          username: _usernameController.text,
+          password: _passwordController.text,
+          securityCode: _securityCodeController.text,
+        )));
       await _loginButtonController.reverse();
     } on TickerCanceled {}
   }
@@ -119,7 +132,39 @@ class LoginPageState extends State<LoginPage>
                                   ],
                                 ),
                               ),
-                              new FormContainer(),
+                              new Container(
+                                margin: new EdgeInsets.fromLTRB(20, 20, 20, 0),
+                                child: new Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    new Form(
+                                        child: new Column(
+                                          mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            new InputFieldArea(
+                                              hint: "Username or E-mail address",
+                                              obscure: false,
+                                              icon: Icons.person_outline,
+                                              controller: _usernameController,
+                                            ),
+                                            new InputFieldArea(
+                                              hint: "Password",
+                                              obscure: true,
+                                              icon: Icons.lock_outline,
+                                              controller: _passwordController
+                                            ),
+                                            new InputFieldArea(
+                                              hint: "Security Code",
+                                              obscure: true,
+                                              icon: Icons.fingerprint,
+                                              controller: _securityCodeController,
+                                            ),
+                                          ],
+                                        )),
+                                  ],
+                                ),
+                              ),
                               new SignUp()
                             ],
                           ),

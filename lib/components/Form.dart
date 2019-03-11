@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './InputFields.dart';
 
 class FormContainer extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return (new Container(

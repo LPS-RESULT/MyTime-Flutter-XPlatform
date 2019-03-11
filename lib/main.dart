@@ -19,7 +19,6 @@ class MTApp extends StatelessWidget {
       home: LoginPage(),
       routes:  <String, WidgetBuilder>{
         '/login': (BuildContext context) => LoginPage(),
-        '/processLogin': (BuildContext context) => ProcessLoginPage(),
         '/home': (BuildContext context) => HomePage(),
         '/editTimeLog': (BuildContext context) => EditTimeLogPage(),
         '/moodMeter': (BuildContext context) => MyReviewPage(),

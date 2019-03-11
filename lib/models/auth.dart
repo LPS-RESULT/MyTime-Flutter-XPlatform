@@ -21,6 +21,7 @@ class SfAuthResponse {
   String tokenType;
   String issuedAt;
   String signature;
+  String username;
 
   SfAuthResponse({
     this.accessToken,
@@ -29,6 +30,7 @@ class SfAuthResponse {
     this.tokenType,
     this.issuedAt,
     this.signature,
+    this.username,
   });
 
   factory SfAuthResponse.fromJson(Map<String, dynamic> json) =>

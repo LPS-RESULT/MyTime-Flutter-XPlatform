@@ -39,6 +39,8 @@ class ProcessLoginPageState extends State<ProcessLoginPage>{
       prefs.setString(PREFS_INSTANCE_URL, response.instanceUrl);
       prefs.setString(PREFS_AUTH_ID, response.id);
       prefs.setString(PREFS_AUTH_SIGNATURE, response.signature);
+      prefs.setString(PREFS_USERNAME, widget.username);
+      await getUserDetails();
       Navigator.pushNamed(context, '/home');
     } else {
       Navigator.pop(context);

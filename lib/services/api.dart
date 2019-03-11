@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:mytime_mobile/models/auth.dart';
+import 'package:mytime_mobile/models/user.dart';
 import 'package:mytime_mobile/services/prefs.dart';
 
 const apiClientId = 'cHbOAAKDptMFnPnEWDOSWJwoVZuySMVXthFY'
@@ -23,7 +24,7 @@ Future<SfAuthResponse> loginWithSFToken({@required String username,
   return sfAuthResponseFromJson(response.body);
 }
 
-Future<String> getUserDetails() async {
+Future<UserProfile> getUserDetails() async {
   SfAuthResponse userDetails = await getAuthFromPrefs();
   String url = '${userDetails.instanceUrl}/services/data/'
   'v44.0/query/?q=SELECT+AboutMe%2CAccountId%2CAddress%2CAlias%2CBadgeText%2C'
@@ -51,6 +52,5 @@ Future<String> getUserDetails() async {
       HttpHeaders.authorizationHeader: 'Bearer ${userDetails.accessToken}'
     },
   );
-  print(response.body);
-  return response.body;
+  return userProfileFromJson(response.body);
 }

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 UserProfile userProfileFromJson(String str) {
   final jsonData = json.decode(str);
-  return UserProfile.fromJson(jsonData);
+  return UserProfile.fromJson(jsonData["records"][0]);
 }
 
 String userProfileToJson(UserProfile data) {

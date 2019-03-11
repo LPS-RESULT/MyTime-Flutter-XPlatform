@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mytime_mobile/models/auth.dart';
+import 'package:mytime_mobile/models/user.dart';
 import 'package:mytime_mobile/services/api.dart';
 import 'package:mytime_mobile/services/prefs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +22,7 @@ class ProcessLoginPage extends StatefulWidget {
 class ProcessLoginPageState extends State<ProcessLoginPage>{
 
   int _loginStep = 0;
+  UserProfile _userProfile;
 
   @override
   void initState() {
@@ -47,7 +49,7 @@ class ProcessLoginPageState extends State<ProcessLoginPage>{
       setState(() {
         _loginStep = 1;
       });
-      await getUserDetails();
+      _userProfile = await getUserDetails();
       setState(() {
         _loginStep = 2;
       });
@@ -68,7 +70,7 @@ class ProcessLoginPageState extends State<ProcessLoginPage>{
         status = 'Getting user details for \n${widget.username}';
         break;
       case 2:
-        status = 'Success!';
+        status = 'Welcome ${_userProfile.firstName} ${_userProfile.lastName}!';
         break;
       default:
         break;

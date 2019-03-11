@@ -23,7 +23,7 @@ class ImageBackground extends StatelessWidget {
     return (new Container(
         width: screenSize.width,
         height: screenSize.height / 2.5,
-        decoration: new BoxDecoration(image: backgroundImage),
+//        decoration: new BoxDecoration(image: backgroundImage),
         child: new Container(
           decoration: new BoxDecoration(
               gradient: new LinearGradient(

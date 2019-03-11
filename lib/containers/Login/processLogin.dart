@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mytime_mobile/models/auth.dart';
@@ -17,6 +19,8 @@ class ProcessLoginPage extends StatefulWidget {
 }
 
 class ProcessLoginPageState extends State<ProcessLoginPage>{
+
+  int _loginStep = 0;
 
   @override
   void initState() {
@@ -40,11 +44,43 @@ class ProcessLoginPageState extends State<ProcessLoginPage>{
       prefs.setString(PREFS_AUTH_ID, response.id);
       prefs.setString(PREFS_AUTH_SIGNATURE, response.signature);
       prefs.setString(PREFS_USERNAME, widget.username);
+      setState(() {
+        _loginStep = 1;
+      });
       await getUserDetails();
+      setState(() {
+        _loginStep = 2;
+      });
+      await Future.delayed(const Duration(seconds: 1));
       Navigator.pushNamed(context, '/home');
     } else {
       Navigator.pop(context);
     }
+  }
+
+  Widget statusText() {
+    String status = '';
+    switch (_loginStep) {
+      case 0:
+        status = 'Signing in as \n${widget.username}';
+        break;
+      case 1:
+        status = 'Getting user details for \n${widget.username}';
+        break;
+      case 2:
+        status = 'Success!';
+        break;
+      default:
+        break;
+    }
+    return Text(status,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+        fontSize: 17,
+      ),
+    );
   }
 
   @override
@@ -65,11 +101,16 @@ class ProcessLoginPageState extends State<ProcessLoginPage>{
                 Container(
                   width: 50,
                   height: 50,
-                  child: CircularProgressIndicator(
+                  child: _loginStep < 2 ? CircularProgressIndicator(
                     backgroundColor: Colors.white,
                     valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-                  ),
+
+                  )
+                      :
+                  Icon(Icons.check_circle, color: Colors.white, size: 50,),
                 ),
+                Padding(padding: EdgeInsets.fromLTRB(0, 14, 0, 0)),
+                statusText(),
               ]
             )
           ),

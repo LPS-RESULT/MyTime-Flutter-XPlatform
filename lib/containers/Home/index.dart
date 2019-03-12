@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/animation.dart';
-import 'dart:async';
 import '../../components/ListViewContainer.dart';
 import '../../components/AddButton.dart';
 import '../../components/HomeTopView.dart';
@@ -12,6 +13,10 @@ import 'package:intl/intl.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:mytime_mobile/utils/colors.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:mytime_mobile/services/globals.dart' as globals;
+import 'package:mytime_mobile/services/prefs.dart' as prefs;
+import 'package:mytime_mobile/models/auth.dart';
+import 'package:flutter_advanced_networkimage/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -65,13 +70,20 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
       });
   }
 
+  SfAuthResponse _auth;
+
   @override
   void initState() {
     super.initState();
+    setState(() {
+      prefs.getAuthFromPrefs().then((value) {
+        _auth = value;
+      });
+    });
     _screenController = new AnimationController(
-        duration: new Duration(milliseconds: 2000), vsync: this);
+        duration: new Duration(milliseconds: 800), vsync: this);
     _buttonController = new AnimationController(
-        duration: new Duration(milliseconds: 1500), vsync: this);
+        duration: new Duration(milliseconds: 500), vsync: this);
 
     fadeScreenAnimation = new ColorTween(
       begin: HexColor('#3a7bd5'),
@@ -188,7 +200,6 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     timeDilation = 0.3;
     Size screenSize = MediaQuery.of(context).size;
-
     return (new WillPopScope(
       onWillPop: () async {
         return true;
@@ -205,14 +216,21 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 shrinkWrap: _screenController.value < 1 ? false : true,
                 padding: const EdgeInsets.all(0.0),
                 children: <Widget>[
+                  (_auth != null) ?
                   new ImageBackground(
                     backgroundImage: backgroundImage,
                     containerGrowAnimation: containerGrowAnimation,
-                    profileImage: profileImage,
+                    profileImage: DecorationImage(
+                      image: AdvancedNetworkImage(
+                        globals.currentUser.mediumPhotoUrl,
+                        header: { 'Authorization': 'Bearer ${_auth.accessToken}' }
+                      ),
+                      fit: BoxFit.fitHeight,
+                    ),
                     month: month,
                     selectbackward: _selectbackward,
                     selectforward: _selectforward,
-                  ),
+                  ) : Container(),
                   new ListViewContent(
                     listSlideAnimation: listSlideAnimation,
                     listSlidePosition: listSlidePosition,

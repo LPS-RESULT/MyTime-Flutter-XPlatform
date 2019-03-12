@@ -121,7 +121,7 @@ class LoginPageState extends State<LoginPage>
                                         color: Colors.white30,
                                         fontSize: 12.0),
                                     ),
-                                    Text('log in',
+                                    Text('sign in',
                                       style: new TextStyle(
                                           fontFamily: 'Raleway',
                                           fontWeight: FontWeight.w800,

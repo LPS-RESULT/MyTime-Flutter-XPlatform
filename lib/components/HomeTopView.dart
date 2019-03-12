@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'MonthView.dart';
 import 'Profile_Notification.dart';
 import 'package:mytime_mobile/utils/colors.dart';
+import 'package:mytime_mobile/services/globals.dart' as globals;
 
 class ImageBackground extends StatelessWidget {
   final DecorationImage backgroundImage;
@@ -17,6 +18,26 @@ class ImageBackground extends StatelessWidget {
       this.month,
       this.selectbackward,
       this.selectforward});
+
+  Widget greeterText() {
+    String greeting = '';
+    int hour = TimeOfDay.now().hour;
+    if (hour > 0 && hour < 12) {
+      greeting = 'good morning';
+    } else if (hour >= 12 && hour < 18) {
+      greeting = 'good afternoon';
+    } else {
+      greeting = 'good evening';
+    }
+    return Text(greeting,
+      style: new TextStyle(
+          fontSize: 14.0,
+          letterSpacing: 1.2,
+          fontWeight: FontWeight.w300,
+          color: Colors.white54),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -46,14 +67,9 @@ class ImageBackground extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("good afternoon",
-                                style: new TextStyle(
-                                    fontSize: 14.0,
-                                    letterSpacing: 1.2,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.white54),
-                              ),
-                              Text("Timothy Santiago",
+                              greeterText(),
+                              Text('${globals.currentUser.firstName} '
+                                  '${globals.currentUser.lastName}',
                                 style: new TextStyle(
                                     fontSize: 25.0,
                                     letterSpacing: 1.2,

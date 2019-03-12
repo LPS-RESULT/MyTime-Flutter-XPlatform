@@ -7,6 +7,7 @@ import 'package:mytime_mobile/models/user.dart';
 import 'package:mytime_mobile/services/api.dart';
 import 'package:mytime_mobile/services/prefs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mytime_mobile/services/globals.dart' as globals;
 
 class ProcessLoginPage extends StatefulWidget {
   final String username;
@@ -22,7 +23,6 @@ class ProcessLoginPage extends StatefulWidget {
 class ProcessLoginPageState extends State<ProcessLoginPage>{
 
   int _loginStep = 0;
-  UserProfile _userProfile;
 
   @override
   void initState() {
@@ -37,6 +37,7 @@ class ProcessLoginPageState extends State<ProcessLoginPage>{
   }
 
   login() async {
+
     SfAuthResponse response = await loginWithSFToken(username: widget.username, password: widget.password,
         securityCode: widget.securityCode);
     if (response != null) {
@@ -49,7 +50,7 @@ class ProcessLoginPageState extends State<ProcessLoginPage>{
       setState(() {
         _loginStep = 1;
       });
-      _userProfile = await getUserDetails();
+      globals.currentUser = await getUserDetails();
       setState(() {
         _loginStep = 2;
       });
@@ -70,7 +71,8 @@ class ProcessLoginPageState extends State<ProcessLoginPage>{
         status = 'Getting user details for \n${widget.username}';
         break;
       case 2:
-        status = 'Welcome ${_userProfile.firstName} ${_userProfile.lastName}!';
+        status = 'Welcome ${globals.currentUser.firstName} '
+            '${globals.currentUser.lastName}!';
         break;
       default:
         break;

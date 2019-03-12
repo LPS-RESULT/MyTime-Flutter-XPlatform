@@ -5,11 +5,14 @@ import 'containers/EditTimeLog/index.dart';
 import 'package:mytime_mobile/containers/Login/processLogin.dart';
 import 'package:mytime_mobile/containers/Map/map.dart';
 import 'package:mytime_mobile/utils/mood_meter/main.dart';
+import 'package:mytime_mobile/services/globals.dart' as globals;
+import 'package:mytime_mobile/models/user.dart';
 
 class MTApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    globals.currentUser = UserProfile();
     return MaterialApp(
       title: 'MyTime Mobile',
       theme: ThemeData(
